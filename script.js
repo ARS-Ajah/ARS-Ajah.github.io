@@ -1,64 +1,30 @@
-const form = document.querySelector('form');
+document.getElementById("check").addEventListener("click", validateURL);
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
+function validateURL() {
+  var webhook = document.getElementById("webhook").value;
 
-  const webhook = document.querySelector('#webhook').value;
-
-  if (!webhook) {
-    alert('Sorry, please fill the text box');
+  if (webhook === "") {
+    alert("Sorry, the URL is empty.");
     return;
   }
 
-  const generateString = () => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < 18; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
-  };
+  if (!webhook.startsWith("https://discord.com/api/webhooks/")) {
+    alert("This is not a webhook URL!");
+    return;
+  }
 
-  const sendRequest = (string) => {
-    const url = `https://discordapp.com/api/v9/entitlements/gift-codes/${string}?with_application=false&with_subscription_plan=true`;
-
-    fetch(url)
-      .then((response) => {
-        if (response.status === 200) {
-          sendWebhook(string);
-        } else {
-          alert('Sorry, please send a valid webhook URL');
-        }
-      })
-      .catch((error) => {
-        alert('Sorry, there was an error sending the request');
-      });
-  };
-
-  const sendWebhook = (string) => {
-    const data = {
-      content: string,
-    };
-
-    fetch(webhook, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+  fetch(webhook)
+    .then(function(response) {
+      if (response.status === 200) {
+        alert("Starting the process!")
+        console.log("Process is starting at the background...");
+      } else {
+        alert("Sorry Please enter a valid webhook url")
+        console.log("URL Replied with status code of " + response.status);
+      }
     })
-      .then((response) => {
-        if (response.status === 200) {
-          alert('String sent successfully!');
-        } else {
-          alert('Sorry, there was an error sending the webhook');
-        }
-      })
-      .catch((error) => {
-        alert('Sorry, there was an error sending the webhook');
-      });
-  };
-
-  const string = generateString();
-  sendRequest(string);
-});
+    .catch(function(error) {
+      console.error();
+      alert("An error has occured")
+    });
+}
