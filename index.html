@@ -4,15 +4,22 @@
   <title>Discord Nitro generator</title>
 </head>
 <body>
-  <h1>Infinite String Generator</h1>
-  <p>This script will infinitely generate strings of text, each with 18 randomly generated alphanumeric values.</p>
-  <p>These strings will then be sent to a function that will send a GET request to the URL "https://discordapp.com/api/v9/entitlements/gift-codes/{Code}?with_application=false&with_subscription_plan=true" where the {Code} is the randomly generated string.</p>
-  <p>If the GET request returns with a code of 200 OK, then you will get your code</p>
-  <p>REMEMBER: We don't consider this to be working in fact the chance of this happening is 1/5000000000000000000 or 1/5 octillion so we are not recommending this method</p>
+  <h1>Discord Nitro Generator</h1>
+  <p>This webpage is a webpage to generate nitro links</p>
+  <h2>FAQ:</h2>
+  <h3>How does it works?</h3>
+  <p>These script will make an 18 CHARACTER alphanumeric string. This string will then send a GET request to</p>
+  <p style="font-weight: bold;">https://discordapp.com/api/v9/entitlements/gift-codes/{Code}?with_application=false&with_subscription_plan=true</p>
+  <p>the {Code} is the 18 Charater string. If the GET Request is returned with a Status code of 200 OK.</p>
+  <p>Then it will send the url to your server with a https://discord.gift/{Code}</p>
+  <h3>Is this website stealing my webhook token?</h3>
+  <p>Nope!, We only store webhook URL on the client side</p>
+  <h3>What happened on the backend?</h3>
+  <p>The backend is the place for us to send an GET Request and sending with the webhook</p>
   <form>
     <label for="webhook">Webhook URL:</label>
     <input type="text" id="webhook">
-    <input type="check" value="Generate">
+    <button id="Check">Check</button>
   </form>
   <script src="./script.js"></script>
 </body>
